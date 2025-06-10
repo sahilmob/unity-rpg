@@ -1,3 +1,5 @@
+#nullable disable
+
 using UnityEngine;
 
 public class Player_MoveState : Player_GroundedState
@@ -10,7 +12,7 @@ public class Player_MoveState : Player_GroundedState
     {
         base.Update();
 
-        if (player.moveInput.x == 0  || player.wallDetected)
+        if (player.moveInput.x == 0 || player.wallDetected)
             stateMachine.ChangeState(player.idleState);
 
 

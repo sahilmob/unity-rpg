@@ -1,3 +1,5 @@
+#nullable disable
+
 using UnityEngine;
 
 public abstract class PlayerState : EntityState
@@ -18,6 +20,7 @@ public abstract class PlayerState : EntityState
     public override void Update()
     {
         base.Update();
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
 
         if (input.Player.Dash.WasPressedThisFrame() && CanDash())
             stateMachine.ChangeState(player.dashState);

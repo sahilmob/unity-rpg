@@ -1,3 +1,5 @@
+#nullable disable
+
 using UnityEngine;
 
 public abstract class EntityState
@@ -25,7 +27,6 @@ public abstract class EntityState
     public virtual void Update()
     {
         stateTimer -= Time.deltaTime;
-        anim.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 
     public virtual void Exit()
