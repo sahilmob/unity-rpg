@@ -1,6 +1,5 @@
-using UnityEngine;
 
-public class StateMachine 
+public class StateMachine
 {
     public EntityState currentState { get; private set; }
 
@@ -20,6 +19,6 @@ public class StateMachine
 
     public void UpdateActiveState()
     {
-        currentState.Update();        
+        currentState.Update();
     }
 }
