@@ -1,7 +1,7 @@
 
 #nullable disable
 
-public class Enemy_IdleState : EnemyState
+public class Enemy_IdleState : Enemy_GroundedState
 {
     public Enemy_IdleState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
