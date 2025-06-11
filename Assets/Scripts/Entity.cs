@@ -1,4 +1,3 @@
-#nullable enable
 
 using UnityEngine;
 
@@ -17,7 +16,10 @@ public class Entity : MonoBehaviour
     [SerializeField] protected LayerMask whatIsGround;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform primaryWallCheck;
+
+#nullable enable
     [SerializeField] protected Transform? secondaryWallCheck;
+#nullable disable
     public bool groundDetected { get; protected set; }
     public bool wallDetected { get; protected set; }
 

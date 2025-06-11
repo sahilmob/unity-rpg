@@ -16,5 +16,6 @@ public class EnemyState : EntityState
     {
         base.Update();
         anim.SetFloat("moveAnimSpeedMultiplier", enemy.moveAnimSpeedMultiplier);
+        anim.SetFloat("xVelocity", rb.linearVelocityX);
     }
 }
