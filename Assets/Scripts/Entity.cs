@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -16,6 +17,8 @@ public class Entity : MonoBehaviour
     [SerializeField] protected LayerMask whatIsGround;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform primaryWallCheck;
+    private Coroutine knockbackCo;
+    private bool isKnocked;
 
 #nullable enable
     [SerializeField] protected Transform? secondaryWallCheck;
@@ -49,6 +52,9 @@ public class Entity : MonoBehaviour
 
     public void SetVelocity(float xVelocity, float yVelocity)
     {
+        if (isKnocked)
+            return;
+
         rb.linearVelocity = new Vector2(xVelocity, yVelocity);
         HandleFlip(xVelocity);
     }
@@ -68,6 +74,24 @@ public class Entity : MonoBehaviour
         facingDir = facingDir * -1;
     }
 
+    public void ReceiveKnockback(Vector2 knockback, float duration)
+    {
+        if (knockbackCo != null)
+        {
+            StopCoroutine(knockbackCo);
+        }
+
+        knockbackCo = StartCoroutine(KnockbackCo(knockback, duration));
+    }
+
+    private IEnumerator KnockbackCo(Vector2 knockback, float duration)
+    {
+        isKnocked = true;
+        rb.linearVelocity = knockback;
+        yield return new WaitForSeconds(duration);
+        rb.linearVelocity = Vector2.zero;
+        isKnocked = false;
+    }
     private void HandleCollisionDetection()
     {
         groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
