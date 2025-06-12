@@ -7,6 +7,7 @@ public class Enemy : Entity
     public Enemy_MoveState moveState;
     public Enemy_AttackState attackState;
     public Enemy_BattleState battleState;
+    public Enemy_DeadState deadState;
     [Header("Battle Details")]
     public float battleMoveSpeed = 3;
     public float attackDistance = 2;
@@ -60,6 +61,12 @@ public class Enemy : Entity
     protected override void Update()
     {
         base.Update();
+    }
+
+    public override void EntityDeath()
+    {
+        base.EntityDeath();
+        stateMachine.ChangeState(deadState);
     }
 
     protected override void OnDrawGizmos()

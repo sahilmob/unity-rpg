@@ -4,6 +4,7 @@
 public class StateMachine
 {
     public EntityState currentState { get; private set; }
+    private bool canChangeState = true;
 
 
     public void Initialize(EntityState startState)
@@ -14,6 +15,7 @@ public class StateMachine
 
     public void ChangeState(EntityState newState)
     {
+        if (!canChangeState) return;
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
@@ -22,5 +24,10 @@ public class StateMachine
     public void UpdateActiveState()
     {
         currentState.Update();
+    }
+
+    public void SwitchOffStateMachine()
+    {
+        canChangeState = false;
     }
 }
