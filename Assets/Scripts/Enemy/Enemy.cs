@@ -26,6 +26,16 @@ public class Enemy : Entity
     [SerializeField] private float playerCheckDistance = 10;
     public Transform player { get; private set; }
 
+    private void OnEnable()
+    {
+        Player.OnPlayerDeath += HandlePlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        Player.OnPlayerDeath -= HandlePlayerDeath;
+    }
+
     public Transform playerReference
     {
         get
@@ -67,6 +77,11 @@ public class Enemy : Entity
     {
         base.EntityDeath();
         stateMachine.ChangeState(deadState);
+    }
+
+    private void HandlePlayerDeath()
+    {
+        stateMachine.ChangeState(idleState);
     }
 
     protected override void OnDrawGizmos()
