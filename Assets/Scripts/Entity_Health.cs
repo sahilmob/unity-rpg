@@ -6,7 +6,7 @@ public class Entity_Health : MonoBehaviour
     [SerializeField] public float maxHp = 100;
     [SerializeField] protected bool isDead;
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, Transform damageDealer)
     {
         if (isDead) return;
         ReduceHp(damage);

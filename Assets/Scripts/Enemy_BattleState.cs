@@ -49,14 +49,21 @@ public class Enemy_BattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        if (player == null)
-            player = enemy.PlayerDetected().transform;
+
+        UpdateBattleTimer();
+
+        player ??= enemy.playerReference;
 
         if (shouldRetreat)
         {
             rb.linearVelocity = new Vector2(enemy.retreatVelocity.x * -directionToPlayer, enemy.retreatVelocity.y);
             enemy.HandleFlip(directionToPlayer);
         }
+    }
+
+    private void UpdateBattleTimer()
+    {
+        lastTimeWasInBattle = Time.time;
     }
 
 
@@ -66,7 +73,7 @@ public class Enemy_BattleState : EnemyState
 
         if (enemy.PlayerDetected())
         {
-            lastTimeWasInBattle = Time.time;
+            UpdateBattleTimer();
         }
 
         if (Time.time > lastTimeWasInBattle + 5)
