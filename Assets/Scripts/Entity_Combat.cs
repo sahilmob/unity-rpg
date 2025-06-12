@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Entity_CombatComponent : MonoBehaviour
+public class Entity_Combat : MonoBehaviour
 {
 
+    public float damage = 10;
     [Header("Target Detection")]
     [SerializeField] private Transform targetCheck;
     [SerializeField] private LayerMask whatIsTarget;
@@ -13,7 +14,8 @@ public class Entity_CombatComponent : MonoBehaviour
 
         foreach (Collider2D c in detectedColliders)
         {
-            Debug.Log("Attacking " + c.name);
+            Entity_Health targetHealth = c.GetComponent<Entity_Health>();
+            targetHealth?.TakeDamage(damage);
         }
     }
 
