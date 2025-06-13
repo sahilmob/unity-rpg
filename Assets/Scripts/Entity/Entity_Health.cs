@@ -1,11 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Entity_Health : MonoBehaviour, IDamageable
 {
-    [SerializeField] public float maxHp = 100;
-    [SerializeField] protected bool isDead;
+    private Slider healthBar;
     private Entity_VFX entityVfx;
     private Entity entity;
+    private float currentHp;
+
+    [SerializeField] public float maxHp = 100;
+    [SerializeField] protected bool isDead;
     [Header("On Damage Knockback")]
     [SerializeField] private float knockbackDuration = 0.2f;
     [SerializeField] private Vector2 onDamageKnockback = new Vector2(1.5f, 2.5f);
@@ -15,13 +19,13 @@ public class Entity_Health : MonoBehaviour, IDamageable
     [SerializeField] private float heavyDamageDuration = 0.5f;
     [SerializeField] private Vector2 onHeavyDamageKnockback = new Vector2(7, 7);
 
-
-
-
     protected virtual void Awake()
     {
+        currentHp = maxHp;
         entityVfx = GetComponent<Entity_VFX>();
         entity = GetComponent<Entity>();
+        healthBar = GetComponentInChildren<Slider>();
+        UpdateHealthBar();
     }
 
     public virtual void TakeDamage(float damage, Transform damageDealer)
@@ -36,9 +40,10 @@ public class Entity_Health : MonoBehaviour, IDamageable
 
     protected void ReduceHp(float damage)
     {
-        maxHp -= damage;
+        currentHp -= damage;
+        UpdateHealthBar();
 
-        if (maxHp <= 0)
+        if (currentHp <= 0)
         {
             Die();
         }
@@ -57,6 +62,12 @@ public class Entity_Health : MonoBehaviour, IDamageable
         knockback.x = knockback.x * direction;
 
         return knockback;
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar == null) return;
+        healthBar.value = currentHp / maxHp;
     }
 
     private float CalculateKnokbackDuration(float damage)
