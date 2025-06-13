@@ -8,12 +8,17 @@ public class Enemy : Entity
     public Enemy_AttackState attackState;
     public Enemy_BattleState battleState;
     public Enemy_DeadState deadState;
+    public Enemy_StunnedState stunnedState;
     [Header("Battle Details")]
     public float battleMoveSpeed = 3;
     public float attackDistance = 2;
     public float battleTimeDuration = 5;
     public float minRetreatDistance = 1;
     public Vector2 retreatVelocity;
+    [Header("Stunned State Details")]
+    public float stunnedDuration = 1;
+    public bool canBeStunned;
+    public Vector2 stunnedVelocity = new Vector2(7, 7);
     [Header("Movement Details")]
     public float idleTimer = 2f;
     public float moveSpeed = 1.4f;
@@ -34,6 +39,11 @@ public class Enemy : Entity
     private void OnDisable()
     {
         Player.OnPlayerDeath -= HandlePlayerDeath;
+    }
+
+    public void EnableCounterWindow(bool enabled)
+    {
+        canBeStunned = enabled;
     }
 
     public Transform playerReference
