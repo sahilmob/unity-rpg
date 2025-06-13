@@ -18,7 +18,7 @@ public class Entity_Combat : MonoBehaviour
         }
     }
 
-    private Collider2D[] detectedColliders
+    protected Collider2D[] detectedColliders
     {
         get
         {
