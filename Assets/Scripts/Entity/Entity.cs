@@ -12,6 +12,7 @@ public class Entity : MonoBehaviour
 
     protected bool facingRight = true;
     public int facingDir { get; protected set; } = 1;
+    private Coroutine slowDownCo;
 
     [Header("Collision detection")]
     [SerializeField] protected float groundCheckDistance;
@@ -50,6 +51,22 @@ public class Entity : MonoBehaviour
     public virtual void EntityDeath()
     {
 
+    }
+
+    public virtual void SlowDownEntityBy(float duration, float multiplier)
+    {
+        if (slowDownCo != null)
+        {
+            StopCoroutine(slowDownCo);
+        }
+
+        slowDownCo = StartCoroutine(SlowDownCo(duration, multiplier));
+    }
+
+    protected virtual IEnumerator SlowDownCo(float duration, float multiplier)
+    {
+        // should be overridden on player and enemy
+        yield return null;
     }
 
     public void CurrentStateAnimationTrigger()

@@ -14,6 +14,9 @@ public class Entity_VFX : MonoBehaviour
     [SerializeField] private GameObject hitVfx;
     [SerializeField] private GameObject critHitVfx;
     [SerializeField] private Color hitVfxColor = Color.white;
+    [Header("Element Colors")]
+    [SerializeField] private Color chillVfx = Color.cyan;
+    private Color originalHitVfxColor;
 
 
     void Awake()
@@ -21,6 +24,7 @@ public class Entity_VFX : MonoBehaviour
         entity = GetComponent<Entity>();
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMaterial = sr.material;
+        originalHitVfxColor = hitVfxColor;
     }
 
     public void PlayOnDamageVfx()
@@ -31,6 +35,47 @@ public class Entity_VFX : MonoBehaviour
         }
 
         onDamageVfxCo = StartCoroutine(OnDamageVfxCo());
+    }
+
+    public void UpdateOnHitColor(ElementType element)
+    {
+        if (element == ElementType.Ice)
+            hitVfxColor = chillVfx;
+
+        if (element == ElementType.None)
+            hitVfxColor = originalHitVfxColor;
+    }
+
+    public void PlayerOnStatusVfx(float duration, ElementType element)
+    {
+        Color color = element switch
+        {
+            ElementType.Ice => chillVfx,
+            _ => Color.white
+        };
+
+        StartCoroutine(PlayerStatusVfxCo(duration, color));
+    }
+
+    private IEnumerator PlayerStatusVfxCo(float duration, Color color)
+    {
+        float tickInterval = .25f;
+        float timePassed = 0;
+
+        Color lightColor = color * 1.2f;
+        Color darkColor = color * .8f;
+
+        bool toggle = false;
+
+        while (timePassed < duration)
+        {
+            sr.color = toggle ? lightColor : darkColor;
+            toggle = !toggle;
+            yield return new WaitForSeconds(tickInterval);
+            timePassed += tickInterval;
+        }
+
+        sr.color = Color.white;
     }
 
     public void CreateOnHitVfx(Transform target, bool isCrit)

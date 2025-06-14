@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -103,5 +104,22 @@ public class Enemy : Entity
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + minRetreatDistance * facingDir, transform.position.y));
+    }
+
+    protected override IEnumerator SlowDownCo(float duration, float multiplier)
+    {
+        float originalMoveSpeed = moveSpeed;
+        float originalBattleMoveSpeed = battleMoveSpeed;
+        float originalAnimSpeed = anim.speed;
+        float speedMultiplier = 1 - multiplier;
+        moveSpeed = moveSpeed * speedMultiplier;
+        battleMoveSpeed = battleMoveSpeed * speedMultiplier;
+        anim.speed = anim.speed * speedMultiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = originalMoveSpeed;
+        battleMoveSpeed = originalBattleMoveSpeed;
+        anim.speed = originalAnimSpeed;
     }
 }

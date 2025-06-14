@@ -60,6 +60,43 @@ public class Player : Entity
         counterAttackState = new Player_CounterAttackState(this, stateMachine, "counterAttack");
     }
 
+    protected override IEnumerator SlowDownCo(float duration, float multiplier)
+    {
+        float originalMoveSpeed = moveSpeed;
+        float originalJumpForce = jumpForce;
+        float originalAnimSpeed = anim.speed;
+        Vector2 originalWallJump = wallJumpForce;
+        Vector2 originalJumpAttack = jumpAttackVelocity;
+        Vector2[] originalAttackVelocity = attackVelocity;
+
+        float speedMultiplier = 1 - multiplier;
+
+        moveSpeed = moveSpeed * speedMultiplier;
+        jumpForce = jumpForce * speedMultiplier;
+        anim.speed = anim.speed * speedMultiplier;
+        wallJumpForce = wallJumpForce * speedMultiplier;
+        jumpAttackVelocity = jumpAttackVelocity * speedMultiplier;
+
+        for (int i = 0; i < attackVelocity.Length; i++)
+        {
+            attackVelocity[i] = attackVelocity[i] * speedMultiplier;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = originalMoveSpeed;
+        jumpForce = originalJumpForce;
+        anim.speed = originalAnimSpeed;
+        wallJumpForce = originalWallJump;
+        jumpAttackVelocity = originalJumpAttack;
+        // attackVelocity = originalAttackVelocity;
+
+        for (int i = 0; i < attackVelocity.Length; i++)
+        {
+            attackVelocity[i] = originalAttackVelocity[i];
+        }
+    }
+
     private void OnEnable()
     {
         input.Enable();
