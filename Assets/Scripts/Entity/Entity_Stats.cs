@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Entity_Stats : MonoBehaviour
@@ -15,6 +16,18 @@ public class Entity_Stats : MonoBehaviour
             float bonusHp = major.vitality.value * 5;
 
             return baseHp + bonusHp;
+        }
+    }
+
+    public float GetEvasion
+    {
+        get
+        {
+            float baseEvasion = defense.evasion.value;
+            float bonusEvasion = major.agility.value * .5f;
+            float evasionCap = 85;
+
+            return Math.Clamp(baseEvasion + bonusEvasion, 0, evasionCap);
         }
     }
 }

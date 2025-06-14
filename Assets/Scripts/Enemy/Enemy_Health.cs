@@ -5,20 +5,22 @@ public class Enemy_Health : Entity_Health
 
     private Enemy enemy => GetComponentInParent<Enemy>();
 
-    public override void TakeDamage(float damage, Transform damageDealer)
+    public override bool TakeDamage(float damage, Transform damageDealer)
     {
 
-        base.TakeDamage(damage, damageDealer);
+        bool tookDamage = base.TakeDamage(damage, damageDealer);
 
-        if (isDead)
+        if (!tookDamage)
         {
-            return;
+            return false;
         }
 
         if (damageDealer.GetComponent<Player>() != null)
         {
             enemy.TryEnterBattlerState(damageDealer);
         }
+
+        return true;
 
     }
 
