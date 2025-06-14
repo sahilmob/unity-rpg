@@ -28,7 +28,7 @@ public class Entity_Health : MonoBehaviour, IDamageable
         UpdateHealthBar();
     }
 
-    public virtual bool TakeDamage(float damage, Transform damageDealer)
+    public virtual bool TakeDamage(float damage, float elementalDamage, Transform damageDealer)
     {
         if (isDead) return false;
         if (AttackEvaded()) return false;
@@ -38,7 +38,7 @@ public class Entity_Health : MonoBehaviour, IDamageable
 
         float mitigation = stats.GetArmorMitigation(armorReduction);
         float finalDamage = damage * (1 - mitigation);
-        Debug.Log(finalDamage);
+        Debug.Log(elementalDamage);
         Vector2 knockback = CalculateKnokback(finalDamage, damageDealer);
         float knockbackDuration = CalculateKnokbackDuration(finalDamage);
         entityVfx?.PlayOnDamageVfx();

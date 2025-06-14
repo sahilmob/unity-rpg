@@ -77,4 +77,31 @@ public class Entity_Stats : MonoBehaviour
             return finalReduction;
         }
     }
+
+    public float GetElementalDamage
+    {
+        get
+        {
+            float fireDamage = offense.fireDamage.value;
+            float iceDamage = offense.iceDamage.value;
+            float lightningDamage = offense.lightningDamage.value;
+
+            float bonusElementalDamage = major.intelligence.value;
+            float highestDamage = Mathf.Max(fireDamage, iceDamage, lightningDamage);
+
+            if (highestDamage <= 0)
+            {
+                return 0;
+            }
+
+            float bonusFire = fireDamage == highestDamage ? 0 : fireDamage * 0.5f;
+            float bonusIce = iceDamage == highestDamage ? 0 : iceDamage * 0.5f;
+            float bonusLightening = lightningDamage == highestDamage ? 0 : lightningDamage * 0.5f;
+
+            float weakerElementsDamage = bonusFire + bonusIce + bonusLightening;
+            float finalDamage = highestDamage + bonusElementalDamage + weakerElementsDamage;
+
+            return finalDamage;
+        }
+    }
 }

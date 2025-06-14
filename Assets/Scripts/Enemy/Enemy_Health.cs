@@ -5,10 +5,10 @@ public class Enemy_Health : Entity_Health
 
     private Enemy enemy => GetComponentInParent<Enemy>();
 
-    public override bool TakeDamage(float damage, Transform damageDealer)
+    public override bool TakeDamage(float damage, float elementalDamage, Transform damageDealer)
     {
 
-        bool tookDamage = base.TakeDamage(damage, damageDealer);
+        bool tookDamage = base.TakeDamage(damage, elementalDamage, damageDealer);
 
         if (!tookDamage)
         {
