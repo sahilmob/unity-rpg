@@ -50,4 +50,31 @@ public class Entity_Stats : MonoBehaviour
             return Math.Clamp(baseEvasion + bonusEvasion, 0, evasionCap);
         }
     }
+
+    public float GetArmorMitigation(float armorReduction)
+    {
+
+        float baseArmor = defense.armor.value;
+        float bonusArmor = major.agility.value;
+        float totalArmor = baseArmor + bonusArmor;
+
+        float reductionMultiplier = Mathf.Clamp01(1 - armorReduction);
+        float effectiveMultiplier = totalArmor * reductionMultiplier;
+
+        float mitigation = effectiveMultiplier / (effectiveMultiplier + 100);
+        float mitigationCap = 0.85f;
+        float finalMitigation = Mathf.Clamp(mitigation, 0, mitigationCap);
+
+        return finalMitigation;
+    }
+
+    public float GetArmorReduction
+    {
+        get
+        {
+            float finalReduction = offense.armorReduction.value / 100;
+
+            return finalReduction;
+        }
+    }
 }
