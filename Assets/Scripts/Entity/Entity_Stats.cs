@@ -19,6 +19,26 @@ public class Entity_Stats : MonoBehaviour
         }
     }
 
+    public float GetPhysicalDamage(out bool isCrit)
+    {
+
+        float baseDamage = offense.damage.value;
+        float bonusDamage = major.strength.value;
+        float totalBaseDamage = baseDamage + bonusDamage;
+
+        float baseCritChance = offense.critChance.value;
+        float bonusCritChance = major.agility.value * .3f;
+        float critChance = baseCritChance + bonusCritChance;
+
+        float baseCritPower = offense.critPower.value;
+        float bonusCritPower = major.strength.value * .5f;
+        float critPower = (baseCritPower + bonusCritPower) / 100;
+
+        isCrit = UnityEngine.Random.Range(0, 100) < critChance;
+        float finalDamage = isCrit ? totalBaseDamage * critPower : totalBaseDamage;
+
+        return finalDamage;
+    }
     public float GetEvasion
     {
         get
