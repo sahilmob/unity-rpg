@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 190232849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.03, y: 0.326, z: 0}
+  m_LocalPosition: {x: -10.24, y: 0.326, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -361,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085b20150dd754c4ba69707a439e3f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
   targetCheck: {fileID: 563482707}
   whatIsTarget:
     serializedVersion: 2
@@ -401,6 +400,7 @@ MonoBehaviour:
   onDamageMaterial: {fileID: 2100000, guid: 3db0e57fec5a8472d9d2d238128e22ad, type: 2}
   onDamageVfxDuration: 0.15
   hitVfx: {fileID: 5754669534630590633, guid: affd1744704714ca4aa7b3baa42c7782, type: 3}
+  critHitVfx: {fileID: 7925775602176093892, guid: b6a59e15f6dfe42a0a74ddb6248539c3, type: 3}
   hitVfxColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   attackAlert: {fileID: 1913564978}
 --- !u!114 &190232857
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 100
+    baseValue: 100000
   major:
     strength:
       baseValue: 0
@@ -428,17 +428,19 @@ MonoBehaviour:
       baseValue: 0
   offense:
     damage:
-      baseValue: 10
+      baseValue: 150
     critPower:
       baseValue: 0
     critChance:
       baseValue: 0
+    armorReduction:
+      baseValue: 0
     fireDamage:
-      baseValue: 0
+      baseValue: 100
     iceDamage:
-      baseValue: 0
+      baseValue: 25
     lightningDamage:
-      baseValue: 0
+      baseValue: 6
   defense:
     armor:
       baseValue: 0
@@ -635,7 +637,7 @@ Transform:
   m_GameObject: {fileID: 274070542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.53, y: 1.1, z: 0}
+  m_LocalPosition: {x: -4.59, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -744,6 +746,7 @@ MonoBehaviour:
   onDamageMaterial: {fileID: 2100000, guid: 3db0e57fec5a8472d9d2d238128e22ad, type: 2}
   onDamageVfxDuration: 0.2
   hitVfx: {fileID: 5754669534630590633, guid: affd1744704714ca4aa7b3baa42c7782, type: 3}
+  critHitVfx: {fileID: 7925775602176093892, guid: b6a59e15f6dfe42a0a74ddb6248539c3, type: 3}
   hitVfxColor: {r: 1, g: 0.9023761, b: 0.0990566, a: 1}
 --- !u!114 &274070550
 MonoBehaviour:
@@ -757,7 +760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc2e88c246d74f77b6f496f9b965868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
   targetCheck: {fileID: 1322393471}
   whatIsTarget:
     serializedVersion: 2
@@ -777,7 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 100
+    baseValue: 1000000
   major:
     strength:
       baseValue: 0
@@ -786,13 +788,15 @@ MonoBehaviour:
     intelligence:
       baseValue: 0
     vitality:
-      baseValue: 10
+      baseValue: 0
   offense:
     damage:
       baseValue: 10
     critPower:
-      baseValue: 0
+      baseValue: 250
     critChance:
+      baseValue: 100
+    armorReduction:
       baseValue: 0
     fireDamage:
       baseValue: 0
@@ -804,7 +808,7 @@ MonoBehaviour:
     armor:
       baseValue: 0
     evasion:
-      baseValue: 100
+      baseValue: 0
     fireRes:
       baseValue: 0
     iceRes:
@@ -1200,7 +1204,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.55439, y: -0.23703837, z: 22.692577}
+  m_LocalPosition: {x: -7.6143904, y: -0.9870385, z: 22.692577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61666,7 +61670,7 @@ Transform:
   m_GameObject: {fileID: 1454656417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.55439, y: -0.23703837, z: 22.692577}
+  m_LocalPosition: {x: -7.6143904, y: -0.9870385, z: 22.692577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -62025,6 +62029,7 @@ MonoBehaviour:
   onDamageMaterial: {fileID: 2100000, guid: 3db0e57fec5a8472d9d2d238128e22ad, type: 2}
   onDamageVfxDuration: 0.2
   hitVfx: {fileID: 0}
+  critHitVfx: {fileID: 0}
   hitVfxColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1554323854
 GameObject:

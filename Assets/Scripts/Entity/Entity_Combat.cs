@@ -22,9 +22,9 @@ public class Entity_Combat : MonoBehaviour
         {
             IDamageable damageable = c.GetComponent<IDamageable>();
             if (damageable == null) continue;
-            float elementalDamage = stats.GetElementalDamage;
+            float elementalDamage = stats.GetElementalDamage(out ElementType element);
             float damage = stats.GetPhysicalDamage(out bool isCrit);
-            bool tookDamage = damageable.TakeDamage(damage, elementalDamage, transform);
+            bool tookDamage = damageable.TakeDamage(damage, elementalDamage, element, transform);
             if (tookDamage)
                 vfx?.CreateOnHitVfx(c.transform, isCrit);
         }

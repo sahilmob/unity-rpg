@@ -78,30 +78,59 @@ public class Entity_Stats : MonoBehaviour
         }
     }
 
-    public float GetElementalDamage
+    public float GetElementalDamage(out ElementType element)
     {
-        get
+
+        float fireDamage = offense.fireDamage.value;
+        float iceDamage = offense.iceDamage.value;
+        float lightningDamage = offense.lightningDamage.value;
+
+        float bonusElementalDamage = major.intelligence.value;
+        float highestDamage = fireDamage;
+        element = ElementType.Fire;
+
+        if (iceDamage > highestDamage)
         {
-            float fireDamage = offense.fireDamage.value;
-            float iceDamage = offense.iceDamage.value;
-            float lightningDamage = offense.lightningDamage.value;
-
-            float bonusElementalDamage = major.intelligence.value;
-            float highestDamage = Mathf.Max(fireDamage, iceDamage, lightningDamage);
-
-            if (highestDamage <= 0)
-            {
-                return 0;
-            }
-
-            float bonusFire = fireDamage == highestDamage ? 0 : fireDamage * 0.5f;
-            float bonusIce = iceDamage == highestDamage ? 0 : iceDamage * 0.5f;
-            float bonusLightening = lightningDamage == highestDamage ? 0 : lightningDamage * 0.5f;
-
-            float weakerElementsDamage = bonusFire + bonusIce + bonusLightening;
-            float finalDamage = highestDamage + bonusElementalDamage + weakerElementsDamage;
-
-            return finalDamage;
+            highestDamage = iceDamage;
+            element = ElementType.Ice;
         }
+
+        if (lightningDamage > highestDamage)
+        {
+            highestDamage = lightningDamage;
+            element = ElementType.Lightening;
+        }
+
+        if (highestDamage <= 0)
+        {
+            element = ElementType.None;
+            return 0;
+        }
+
+        float bonusFire = fireDamage == highestDamage ? 0 : fireDamage * 0.5f;
+        float bonusIce = iceDamage == highestDamage ? 0 : iceDamage * 0.5f;
+        float bonusLightening = lightningDamage == highestDamage ? 0 : lightningDamage * 0.5f;
+
+        float weakerElementsDamage = bonusFire + bonusIce + bonusLightening;
+        float finalDamage = highestDamage + bonusElementalDamage + weakerElementsDamage;
+
+        return finalDamage;
+    }
+
+    public float GetElementalResistance(ElementType element)
+    {
+        float baseResistance = element switch
+        {
+            ElementType.Fire => defense.fireRes.value,
+            ElementType.Ice => defense.iceRes.value,
+            ElementType.Lightening => defense.lightningRes.value,
+            _ => 0,
+        };
+
+        float bonusResistance = major.intelligence.value * 0.5f;
+
+        float resistance = baseResistance + bonusResistance;
+        float resistanceCap = 75f;
+        return Mathf.Clamp(resistance, 0, resistanceCap) / 100;
     }
 }
