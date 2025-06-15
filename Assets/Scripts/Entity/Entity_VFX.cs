@@ -16,6 +16,7 @@ public class Entity_VFX : MonoBehaviour
     [SerializeField] private Color hitVfxColor = Color.white;
     [Header("Element Colors")]
     [SerializeField] private Color chillVfx = Color.cyan;
+    [SerializeField] private Color burnVfx = Color.red;
     private Color originalHitVfxColor;
 
 
@@ -51,6 +52,7 @@ public class Entity_VFX : MonoBehaviour
         Color color = element switch
         {
             ElementType.Ice => chillVfx,
+            ElementType.Fire => burnVfx,
             _ => Color.white
         };
 

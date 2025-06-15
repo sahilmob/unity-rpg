@@ -19,9 +19,8 @@ public class Entity_Stats : MonoBehaviour
         }
     }
 
-    public float GetPhysicalDamage(out bool isCrit)
+    public float GetPhysicalDamage(out bool isCrit, float scaleFactor = 1)
     {
-
         float baseDamage = offense.damage.value;
         float bonusDamage = major.strength.value;
         float totalBaseDamage = baseDamage + bonusDamage;
@@ -37,7 +36,7 @@ public class Entity_Stats : MonoBehaviour
         isCrit = UnityEngine.Random.Range(0, 100) < critChance;
         float finalDamage = isCrit ? totalBaseDamage * critPower : totalBaseDamage;
 
-        return finalDamage;
+        return finalDamage * scaleFactor;
     }
     public float GetEvasion
     {
@@ -78,7 +77,7 @@ public class Entity_Stats : MonoBehaviour
         }
     }
 
-    public float GetElementalDamage(out ElementType element)
+    public float GetElementalDamage(out ElementType element, float scaleFactor = 1)
     {
 
         float fireDamage = offense.fireDamage.value;
@@ -114,7 +113,7 @@ public class Entity_Stats : MonoBehaviour
         float weakerElementsDamage = bonusFire + bonusIce + bonusLightening;
         float finalDamage = highestDamage + bonusElementalDamage + weakerElementsDamage;
 
-        return finalDamage;
+        return finalDamage * scaleFactor;
     }
 
     public float GetElementalResistance(ElementType element)
