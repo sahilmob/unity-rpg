@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Entity_StatusHandler : MonoBehaviour
@@ -9,12 +10,62 @@ public class Entity_StatusHandler : MonoBehaviour
     private Entity_Health health;
     private ElementType currentEffect = ElementType.None;
 
+    [Header("Electrify effect details")]
+    [SerializeField] private GameObject lightningStrikeVfx;
+    [SerializeField] private float currentCharge;
+    [SerializeField] private float maximumCharge = 1;
+    private Coroutine electrifyCo;
+
     void Awake()
     {
         entity = GetComponent<Entity>();
         stats = GetComponent<Entity_Stats>();
         health = GetComponent<Entity_Health>();
         entityVfx = GetComponent<Entity_VFX>();
+    }
+
+    public void ApplyElectrifyEffect(float duration, float damage, float charge)
+    {
+        float lightningResistance = stats.GetElementalResistance(ElementType.Lightening);
+        float finalCharge = charge * (1 - lightningResistance);
+        currentCharge = currentCharge + finalCharge;
+
+        if (currentCharge >= maximumCharge)
+        {
+            DoLightningStrike(damage);
+            StopElectrifyEffect();
+            return;
+        }
+
+        if (electrifyCo != null)
+        {
+            StopCoroutine(electrifyCo);
+        }
+
+        electrifyCo = StartCoroutine(ElectrifyEffectCo(duration));
+
+    }
+
+    private void StopElectrifyEffect()
+    {
+        currentEffect = ElementType.None;
+        currentCharge = 0;
+        entityVfx.StopAllVfx();
+    }
+
+    private IEnumerator ElectrifyEffectCo(float duration)
+    {
+        currentEffect = ElementType.Lightening;
+        entityVfx.PlayerOnStatusVfx(duration, ElementType.Lightening);
+
+        yield return new WaitForSeconds(duration);
+        StopElectrifyEffect();
+    }
+
+    private void DoLightningStrike(float damage)
+    {
+        Instantiate(lightningStrikeVfx, transform.position, Quaternion.identity);
+        health.ReduceHp(damage);
     }
 
     public void ApplyChilledEffect(float duration, float slowMultiplier)
@@ -64,6 +115,11 @@ public class Entity_StatusHandler : MonoBehaviour
 
     public bool CanBeApplied(ElementType element)
     {
+        if (element == ElementType.Lightening && currentEffect == ElementType.Lightening)
+        {
+            return true;
+        }
+
         return currentEffect == ElementType.None;
     }
 }
