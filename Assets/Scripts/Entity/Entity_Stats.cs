@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Entity_Stats : MonoBehaviour
 {
+    public Stat_SetupSO defaultStatsSetup;
     public Stat_ResourceGroup resources;
-    public Stat_MajorGroup major;
     public Stat_OffensiveGroup offense;
     public Stat_DefensiveGroup defense;
+    public Stat_MajorGroup major;
 
     public float GetMaxHealth
     {
@@ -158,5 +159,30 @@ public class Entity_Stats : MonoBehaviour
             StatType.LightningResistance => defense.lightningRes,
             _ => default
         };
+    }
+
+    [ContextMenu("Update Default Stat Setup")]
+    public void ApplyDefaultStatSetup()
+    {
+        if (defaultStatsSetup == null) return;
+        resources.maxHealth.SetBaseValue(defaultStatsSetup.maxHealth);
+        resources.healthRegen.SetBaseValue(defaultStatsSetup.healthRegen);
+        major.strength.SetBaseValue(defaultStatsSetup.strength);
+        major.agility.SetBaseValue(defaultStatsSetup.agility);
+        major.intelligence.SetBaseValue(defaultStatsSetup.intelligence);
+        major.vitality.SetBaseValue(defaultStatsSetup.vitality);
+        offense.attackSpeed.SetBaseValue(defaultStatsSetup.attackSpeed);
+        offense.damage.SetBaseValue(defaultStatsSetup.damage);
+        offense.critChance.SetBaseValue(defaultStatsSetup.critChance);
+        offense.critPower.SetBaseValue(defaultStatsSetup.critPower);
+        offense.armorReduction.SetBaseValue(defaultStatsSetup.armorReduction);
+        offense.fireDamage.SetBaseValue(defaultStatsSetup.fireDamage);
+        offense.iceDamage.SetBaseValue(defaultStatsSetup.iceDamage);
+        offense.lightningDamage.SetBaseValue(defaultStatsSetup.lightningDamage);
+        defense.armor.SetBaseValue(defaultStatsSetup.armor);
+        defense.evasion.SetBaseValue(defaultStatsSetup.evasion);
+        defense.fireRes.SetBaseValue(defaultStatsSetup.fireRes);
+        defense.iceRes.SetBaseValue(defaultStatsSetup.iceRes);
+        defense.lightningRes.SetBaseValue(defaultStatsSetup.lightningRes);
     }
 }

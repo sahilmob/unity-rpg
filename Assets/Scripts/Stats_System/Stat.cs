@@ -40,6 +40,11 @@ public class Stat
         modifiers.RemoveAll(m => m.source == source);
         recalculate = true;
     }
+
+    public void SetBaseValue(float value)
+    {
+        baseValue = value;
+    }
 }
 
 [Serializable]
