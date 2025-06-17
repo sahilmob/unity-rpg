@@ -11,6 +11,7 @@ public abstract class EntityState
     protected Rigidbody2D rb;
     protected float stateTimer;
     protected bool triggerCalled;
+    protected Entity_Stats stats;
 
     public EntityState(StateMachine stateMachine, string animBoolName)
     {
@@ -44,6 +45,12 @@ public abstract class EntityState
     public virtual void UpdateAnimationParameters()
     {
 
+    }
+
+    public void SyncAttackSpeed()
+    {
+        float attackSpeed = stats.offense.attackSpeed.value;
+        anim.SetFloat("attackSpeedMultiplier", attackSpeed);
     }
 
 }

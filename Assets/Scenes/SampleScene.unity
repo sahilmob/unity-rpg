@@ -386,6 +386,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   isDead: 0
+  regenInterval: 1
+  canRegenerateHealth: 1
   knockbackDuration: 0.2
   onDamageKnockback: {x: 1.5, y: 2.5}
   heavyDamageThreshold: 0.3
@@ -424,8 +426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a1d6c2003fc4a39b957200f8cdcf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth:
-    baseValue: 1000
+  resources:
+    maxHealth:
+      baseValue: 1000
+    healthRegen:
+      baseValue: 0
   major:
     strength:
       baseValue: 0
@@ -436,6 +441,8 @@ MonoBehaviour:
     vitality:
       baseValue: 0
   offense:
+    attackSpeed:
+      baseValue: 1
     damage:
       baseValue: 150
     critPower:
@@ -751,6 +758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   isDead: 0
+  regenInterval: 1
+  canRegenerateHealth: 1
   knockbackDuration: 0.2
   onDamageKnockback: {x: 1.5, y: 2.5}
   heavyDamageThreshold: 0.3
@@ -811,8 +820,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a1d6c2003fc4a39b957200f8cdcf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth:
-    baseValue: 1000000
+  resources:
+    maxHealth:
+      baseValue: 1000
+    healthRegen:
+      baseValue: 40
   major:
     strength:
       baseValue: 0
@@ -823,6 +835,8 @@ MonoBehaviour:
     vitality:
       baseValue: 0
   offense:
+    attackSpeed:
+      baseValue: 1
     damage:
       baseValue: 0
     critPower:
