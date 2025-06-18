@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    [SerializeField] private string skillName;
+    [SerializeField] private Skill_DataSO skillData;
     public bool isLocked;
     public bool isUnlocked;
     private Color lastColor;
@@ -13,6 +15,14 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private bool CanBeUnlocked
     {
         get => (isLocked || isUnlocked) ? false : true;
+    }
+
+    void OnValidate()
+    {
+        if (!skillData) return;
+        skillName = skillData.skillName;
+        skillIcon.sprite = skillData.icon;
+        gameObject.name = "UI_TreeNode - " + skillData.skillName;
     }
 
     void Awake()

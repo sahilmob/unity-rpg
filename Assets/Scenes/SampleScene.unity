@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 457289569}
   - component: {fileID: 457289570}
   m_Layer: 5
-  m_Name: UI_TreeNode
+  m_Name: UI_TreeNode - Time Echo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,6 +776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9d9807e6cf54df899572f358f1f5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillName: Time Echo
+  skillData: {fileID: 11400000, guid: 3dd73c3565a984b59ae320550a27f51d, type: 2}
   isLocked: 0
   isUnlocked: 0
   skillIcon: {fileID: 680648913}
