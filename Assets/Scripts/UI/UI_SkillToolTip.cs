@@ -26,6 +26,10 @@ public class UI_SkillToolTip : UI_ToolTip
 
     public override void ShowToolTip(bool show, RectTransform targetRect)
     {
+        if (textEffectCo != null)
+        {
+            StopCoroutine(textEffectCo);
+        }
         base.ShowToolTip(show, targetRect);
     }
     public void LockedSkillEffect()
@@ -35,7 +39,7 @@ public class UI_SkillToolTip : UI_ToolTip
             StopCoroutine(textEffectCo);
         }
 
-        StartCoroutine(TextBlinkEffectCo(skillRequirements, .15f, 3));
+        textEffectCo = StartCoroutine(TextBlinkEffectCo(skillRequirements, .15f, 3));
     }
 
     public void ShowToolTip(bool show, RectTransform rect, UI_TreeNode node)

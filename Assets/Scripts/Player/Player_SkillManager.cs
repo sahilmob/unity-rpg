@@ -8,4 +8,13 @@ public class Player_SkillManager : MonoBehaviour
     {
         dash = GetComponentInChildren<Skill_Dash>();
     }
+
+    public Skill_Base GetSkillByType(SkillType t)
+    {
+        return t switch
+        {
+            SkillType.Dash => dash,
+            _ => default
+        };
+    }
 }

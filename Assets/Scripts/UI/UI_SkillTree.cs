@@ -3,7 +3,13 @@ using UnityEngine;
 public class UI_SkillTree : MonoBehaviour
 {
     public int skillPoints;
+    public Player_SkillManager skillManager { get; private set; }
     [SerializeField] private UI_TreeConnectHandler[] parentNodes;
+
+    void Awake()
+    {
+        skillManager = FindFirstObjectByType<Player_SkillManager>();
+    }
 
     public bool HasEnoughSkillPoints(int cost) => skillPoints >= cost;
     public void RemoveSkillPoints(int cost)
