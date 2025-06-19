@@ -1500,8 +1500,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Default Requirments
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
+  m_sharedMaterial: {fileID: -736574940492022374, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -61664,8 +61664,8 @@ MonoBehaviour:
     Default Skill Description Default Skill Description Default Skill Description
     Default Skill Description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
+  m_sharedMaterial: {fileID: -736574940492022374, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -61887,8 +61887,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Default Skill Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
+  m_sharedMaterial: {fileID: -736574940492022374, guid: a39f25e93649b4439afc900aae64f88f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -61912,7 +61912,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
