@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 3
   skillType: 0
-  upgradeType: 4
+  upgradeData:
+    upgradeType: 3
+    cooldown: 3
   skillName: Found Fragment
   description: "Create a time shard on arrival.\n(Inherits all upgrades of Time Shard
     Skill Tree)\L"

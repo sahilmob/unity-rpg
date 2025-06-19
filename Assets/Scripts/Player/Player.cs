@@ -10,6 +10,7 @@ public class Player : Entity
     public static event Action OnPlayerDeath;
     public PlayerInputSet input { get; private set; }
     public Player_SkillManager skillManager { get; private set; }
+    public Player_VFX vfx { get; private set; }
 
     #region State Variables
     public Player_IdleState idleState { get; private set; }
@@ -52,6 +53,7 @@ public class Player : Entity
         ui = FindFirstObjectByType<UI>();
         input = new PlayerInputSet();
         skillManager = GetComponent<Player_SkillManager>();
+        vfx = GetComponent<Player_VFX>();
 
         #region States assignment
         idleState = new Player_IdleState(this, stateMachine, "idle");
