@@ -111,20 +111,29 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         ui.skillToolTip.ShowToolTip(true, rect, this);
-        if (isUnlocked || isLocked) return;
-
-        Color color = Color.white * .9f;
-        color.a = 1;
-        UpdateIconColor(color);
-
+        if (!isUnlocked || !isLocked)
+            ToggleNodeHighlight(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         ui.skillToolTip.ShowToolTip(false, null);
-        if (isUnlocked || isLocked) return;
+        if (!isUnlocked || !isLocked)
+            ToggleNodeHighlight(false);
+    }
 
-        UpdateIconColor(lastColor);
+    private void ToggleNodeHighlight(bool highlight)
+    {
+        Color highlightColor = Color.white * .9f;
+        highlightColor.a = 1;
+        Color colorToApply = highlight ? highlightColor : lastColor;
+        UpdateIconColor(colorToApply);
+    }
+
+    void OnDisable()
+    {
+        if (isLocked) UpdateIconColor(GetColorByHex(lockedColorHex));
+        if (isUnlocked) UpdateIconColor(Color.white);
     }
 
     private void LockConflictNodes()

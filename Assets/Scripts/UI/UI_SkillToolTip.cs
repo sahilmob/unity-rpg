@@ -21,7 +21,7 @@ public class UI_SkillToolTip : UI_ToolTip
     {
         base.Awake();
         ui = GetComponentInParent<UI>();
-        skillTree = ui.GetComponentInChildren<UI_SkillTree>();
+        skillTree = ui.GetComponentInChildren<UI_SkillTree>(true);
     }
 
     public override void ShowToolTip(bool show, RectTransform targetRect)
@@ -46,7 +46,7 @@ public class UI_SkillToolTip : UI_ToolTip
         skillName.text = node.skillData.skillName;
         skillDescription.text = node.skillData.description;
 
-        string skillLockedText = $"<color={infoHex}>{lockedSkillText}</color>";
+        string skillLockedText = GetColoredText(infoHex, lockedSkillText);
         string requirements = node.isLocked ? skillLockedText : GetRequirements(node.skillData.cost, node.neededNodes, node.conflictNodes);
 
         skillRequirements.text = requirements;
@@ -59,40 +59,35 @@ public class UI_SkillToolTip : UI_ToolTip
 
         string costColor = skillTree.HasEnoughSkillPoints(skillCost) ? metConditionsHex : notMetConditionsHex;
 
-        sb.AppendLine($"<color={costColor}>- {skillCost} skill point(s) </color>");
+        sb.AppendLine(GetColoredText(costColor, $"- {skillCost} skill point(s) "));
 
         foreach (var node in neededNodes)
         {
             string nodeColor = node.isUnlocked ? metConditionsHex : notMetConditionsHex;
-            sb.AppendLine($"<color={nodeColor}>- {node.skillData.skillName} </color>");
+            sb.AppendLine(GetColoredText(nodeColor, $"- {node.skillData.skillName}"));
         }
 
         if (conflictNodes.Length > 0)
         {
             sb.AppendLine("");
-            sb.AppendLine($"<color={infoHex}>Locks out: </color>");
+            sb.AppendLine(GetColoredText(infoHex, "Locks out:"));
 
             foreach (var node in conflictNodes)
             {
-                sb.AppendLine($"<color={infoHex}>- {node.skillData.skillName} </color>");
+                sb.AppendLine(GetColoredText(infoHex, $"- {node.skillData.skillName}"));
             }
         }
 
         return sb.ToString();
     }
 
-    private string GetColoredText(string text, string hexColor)
-    {
-        return $"<color={hexColor}>{text}</color>";
-    }
-
     private IEnumerator TextBlinkEffectCo(TextMeshProUGUI text, float blinkInterval, int blinkCount)
     {
         for (var i = 0; i < blinkCount; i++)
         {
-            text.text = GetColoredText(lockedSkillText, notMetConditionsHex);
+            text.text = GetColoredText(notMetConditionsHex, lockedSkillText);
             yield return new WaitForSeconds(blinkInterval);
-            text.text = GetColoredText(lockedSkillText, infoHex);
+            text.text = GetColoredText(infoHex, lockedSkillText);
             yield return new WaitForSeconds(blinkInterval);
         }
     }
