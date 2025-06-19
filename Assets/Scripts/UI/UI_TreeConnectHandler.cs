@@ -13,15 +13,15 @@ public class UI_TreeConnectDetails
 public class UI_TreeConnectHandler : MonoBehaviour
 {
 
-    private RectTransform rect;
+    private RectTransform rect => GetComponent<RectTransform>();
     [SerializeField] private UI_TreeConnectDetails[] details;
     [SerializeField] private UI_TreeConnection[] connections;
 
     void OnValidate()
     {
-        if (rect == null)
+        if (details.Length <= 0)
         {
-            rect = GetComponent<RectTransform>();
+            return;
         }
 
         if (details.Length != connections.Length)
